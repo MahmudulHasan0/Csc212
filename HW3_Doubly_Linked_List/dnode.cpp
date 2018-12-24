@@ -72,12 +72,18 @@ void dnode::list_head_remove(dnode*& head_ptr){
     head_ptr->set_prev(NULL); //setting the new head prev link to NULL
     delete remove_ptr; //deleted the old head dnode
 }
-void dnode::list_remove(dnode* prev_ptr){
 
+void dnode::list_remove(dnode* prev_ptr){
+    dnode *remove_ptr;
+    remove_ptr = prev_ptr->next(); //marking node for deletion
+    remove_ptr->next()->set_prev(prev_ptr);//linking front node to back node
+    prev_ptr->set_next( remove_ptr->next() );//linking back node to front node
+    delete remove_ptr; //deleting the node
 }
 void dnode::list_clear(dnode*& head_ptr){
-
+	while (head_ptr != NULL)	
+	    list_head_remove(head_ptr);
 }
-void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr){
-
+void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr){//finish
+	
 }
