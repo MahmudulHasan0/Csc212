@@ -1,6 +1,6 @@
 //The node class for a doubly linked list typically looks something like this:
-#ifndef MAIN_SAVITCH_DNODE_H  
-#define MAIN_SAVITCH_DNODE_H
+//#ifndef MAIN_SAVITCH_DNODE_H  
+//#define MAIN_SAVITCH_DNODE_H
 #include <cassert>    // Provides assert
 #include <cstdlib>    // Provides NULL and size_t
 
@@ -30,7 +30,7 @@ class dnode {
         dnode *prev_link;
 
 };
-#endif
+//#endif
 //prev link points to the prev node. next pointer points to next node. 
 
 
