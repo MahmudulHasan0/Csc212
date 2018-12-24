@@ -18,16 +18,16 @@ size_t dnode::length( const dnode* head_ptr)
 void dnode::head_insert(dnode*& head_ptr, const dnode::value_type& entry)
 { 
     dnode *new_ptr;
-    new_ptr = new dnode(entry, head_ptr, NULL); //making new node, back points to NULL (since its new head) and next points to current nex tnode
-    head_ptr -> set_prev(new_ptr); //linking the old head to the new head
-    head_ptr = new_ptr; //setting the head_ptr
+    new_ptr = new dnode(entry, head_ptr, NULL); //1) making new node, back points to NULL (since its new head) and next points to current nex tnode
+    head_ptr -> set_prev(new_ptr); //2) linking the old head to the new head
+    head_ptr = new_ptr; //3) setting the head_ptr
 }
 void dnode::insert(dnode* prev_ptr, const dnode::value_type& entry)
 {
     dnode *insert_ptr;
-    insert_ptr = new dnode(entry, prev_ptr->next(), prev_ptr ); //new node linked to back and front nodes
-    prev_ptr->next()->set_prev(insert_ptr); //linking front node to new node
-    prev_ptr->set_next(insert_ptr);//linking back node to new node
+    insert_ptr = new dnode(entry, prev_ptr->next(), prev_ptr ); //1) new node linked to back and front nodes
+    prev_ptr->next()->set_prev(insert_ptr); //2) linking front node to new node
+    prev_ptr->set_next(insert_ptr);//3) linking back node to new node
 }
 dnode* dnode::search(dnode* head_ptr, const dnode::value_type& target)
 {
@@ -47,38 +47,38 @@ const dnode* dnode::search(const dnode* head_ptr, const dnode::value_type& targe
 }
 dnode* dnode::locate(dnode* head_ptr, std::size_t position)
 {
-		dnode *cursor;
-		size_t i;
-		assert (0 < position);
-		cursor = head_ptr;
-		for (i = 1; (i < position) && (cursor->next() != head_ptr); i++)
-			cursor = cursor->next();
-		return cursor;
+    dnode *cursor;
+    size_t i;
+    assert (0 < position);
+    cursor = head_ptr;
+    for (i = 1; (i < position) && (cursor->next() != head_ptr); i++)
+        cursor = cursor->next();
+    return cursor;
 }
 const dnode* dnode::locate(const dnode* head_ptr, std::size_t position)
 {
-		const dnode *cursor;
-		size_t i;
-		assert (0 < position);
-		cursor = head_ptr;
-		for (i = 1; (i < position) && (cursor->next() != head_ptr); i++)
-			cursor = cursor->next();
-		return cursor;
+    const dnode *cursor;
+    size_t i;
+    assert (0 < position);
+    cursor = head_ptr;
+    for (i = 1; (i < position) && (cursor->next() != head_ptr); i++)
+        cursor = cursor->next();
+    return cursor;
 }
 void dnode::list_head_remove(dnode*& head_ptr){
     dnode *remove_ptr;
-    remove_ptr = head_ptr; //mark the head node for deletion
-    head_ptr = head_ptr->next(); //move the head_ptr to the new head node
-    head_ptr->set_prev(NULL); //setting the new head prev link to NULL
-    delete remove_ptr; //deleted the old head dnode
+    remove_ptr = head_ptr; //1) mark the head node for deletion
+    head_ptr = head_ptr->next(); //2) move the head_ptr to the new head node
+    head_ptr->set_prev(NULL); //3) setting the new head prev link to NULL
+    delete remove_ptr; //4) deleted the old head dnode
 }
 
 void dnode::list_remove(dnode* prev_ptr){
     dnode *remove_ptr;
-    remove_ptr = prev_ptr->next(); //marking node for deletion
-    remove_ptr->next()->set_prev(prev_ptr);//linking front node to back node
-    prev_ptr->set_next( remove_ptr->next() );//linking back node to front node
-    delete remove_ptr; //deleting the node
+    remove_ptr = prev_ptr->next(); //1) marking node for deletion
+    remove_ptr->next()->set_prev(prev_ptr);//2) linking front node to back node
+    prev_ptr->set_next( remove_ptr->next() );//3) linking back node to front node
+    delete remove_ptr; //4) deleting the node
 }
 void dnode::list_clear(dnode*& head_ptr){
 	while (head_ptr != NULL)	

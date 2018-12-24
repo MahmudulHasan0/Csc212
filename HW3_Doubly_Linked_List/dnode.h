@@ -29,6 +29,11 @@ class dnode {
         void list_clear(dnode*& head_ptr);
         void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr);
 
+        //not in toolkit: implement these methods that are not in the toolkit:
+        value_type operator[](std::size_t position)//same as locate, return data at position
+        bool has_cycle(dnode*& head_ptr) //return true if there's a cycle
+        dnode* find_cycle(dnode*& head_ptr)//return dnode in cycle
+        //Find more information on finding cycles at: https://blog.ostermiller.org/find-loop-singly-linked-list
     private:
         value_type data_field;
         dnode *next_link;
