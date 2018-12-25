@@ -16,10 +16,12 @@ size_t length( const dnode* head_ptr)
     return answer;
 }
 void head_insert(dnode*& head_ptr, const dnode::value_type& entry)
-{ 
+{
     dnode *new_ptr;
     new_ptr = new dnode(entry, head_ptr, NULL); //1) making new node, back points to NULL (since its new head) and next points to current nex tnode
-    head_ptr -> set_prev(new_ptr); //2) linking the old head to the new head
+    if (head_ptr -> prev() != NULL){
+        head_ptr -> set_prev(new_ptr); //2) linking the old head to the new head
+    }
     head_ptr = new_ptr; //3) setting the head_ptr
 }
 void insert(dnode* prev_ptr, const dnode::value_type& entry)
@@ -68,17 +70,23 @@ const dnode* locate(const dnode* head_ptr, std::size_t position)
 void list_head_remove(dnode*& head_ptr){
     dnode *remove_ptr;
     remove_ptr = head_ptr; //1) mark the head node for deletion
-    head_ptr = head_ptr->next(); //2) move the head_ptr to the new head node
-    head_ptr->set_prev(NULL); //3) setting the new head prev link to NULL
+    if (head_ptr->next() != NULL){
+        head_ptr = head_ptr->next(); //2) move the head_ptr to the new head node
+        head_ptr->set_prev(NULL); //3) setting the new head prev link to NULL
+    }
+
     delete remove_ptr; //4) deleted the old head dnode
 }
 
 void list_remove(dnode* prev_ptr){
     dnode *remove_ptr;
     remove_ptr = prev_ptr->next(); //1) marking node for deletion
-    remove_ptr->next()->set_prev(prev_ptr);//2) linking front node to back node
-    prev_ptr->set_next( remove_ptr->next() );//3) linking back node to front node
+    if (remove_ptr->next() != NULL){
+        remove_ptr->next()->set_prev(prev_ptr);//2) linking front node to back node
+        prev_ptr->set_next( remove_ptr->next() );//3) linking back node to front node
+    }
     delete remove_ptr; //4) deleting the node
+    prev_ptr->set_next(NULL);//5)settign to null
 }
 void list_clear(dnode*& head_ptr){
 	while (head_ptr != NULL)	
