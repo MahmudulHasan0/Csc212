@@ -1,12 +1,12 @@
 #include "dnode.h"
 using namespace std;
 
-dnode::dnode( const value_type& init_data = value_type(), dnode* init_next = NULL, dnode* init_prev = NULL )
-{
-    data_field = init_data; 
-    next_link = init_next; 
-    prev_link = init_prev;
-}
+// dnode::dnode( const value_type& init_data = value_type(), dnode* init_next = NULL, dnode* init_prev = NULL )
+// {
+//     data_field = init_data; 
+//     next_link = init_next; 
+//     prev_link = init_prev;
+// };
 size_t length( const dnode* head_ptr)
 {
     const dnode *cursor;
@@ -84,8 +84,6 @@ void list_clear(dnode*& head_ptr){
 	while (head_ptr != NULL)	
 	    list_head_remove(head_ptr);
 }
-
-
 
 void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr){//finish
 	//A) SET HEAD AND TAIL POINTERS TO null
