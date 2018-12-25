@@ -16,30 +16,23 @@ int main(){
     tail_ptr = s;
     dnode *l = tail_ptr->prev();
 
+//TESTING NEXT AND PREV MEMBERFUCNTIONS:
     // cout<<p<<endl;
     // cout<<p->next()        <<endl;
-    //  dnode* t = p->next();
+    // dnode* t = p->next();
     // cout<<t       <<endl;
-    //cout<<p->next()->next()->next()->prev()->data()<<endl;
+    // cout<<p->next()->next()->next()->prev()->data()<<endl;
 
-    // cout<<length(head_ptr)<<endl;
+//TESTING REMOVES:
+    // cout<<length(head_ptr)<<endl;//4
+    // list_remove(tail_ptr->prev());
+    // cout<<length(head_ptr)<<endl;//3
+
     // list_head_remove(head_ptr);
-    // cout<<length(head_ptr)<<endl<<endl;
+    // cout<<length(head_ptr)<<endl<<endl;//2
 
-    cout<<length(head_ptr)<<endl;
-    list_clear(head_ptr);
-   // cout<<length(head_ptr)<<endl;
-    
-    //  cout<<"data of "<<p->next()<<endl; //member selection operator: (*p).data() is the same as p->data()
-    // // cout<<"what p point to (link): "<< p->next()<<endl;
-
-    // // //testing length of node function
-    // // head_ptr = s; //changign this point changes how much stuff in the link
-    // // cout<<"length of link: "<<length(head_ptr)<<endl;
-
-    // //testing list_head_insert function
-    // //node *entry = new node(67.9); no need to mkae a node :)
-    // head_insert(head_ptr, 67.9);
-    // cout<<"\nentry: "<<head_ptr->data()<<endl;
-    // cout<<"s: "<<s<<"   head: "<<head_ptr->next()<<endl;
+//TESTING CLEAR LIST:
+    // cout<<length(head_ptr)<<endl;
+    // list_clear(head_ptr);
+    // cout<<length(head_ptr)<<endl;//0
 }

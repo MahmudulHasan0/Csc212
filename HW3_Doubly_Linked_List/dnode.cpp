@@ -70,11 +70,10 @@ const dnode* locate(const dnode* head_ptr, std::size_t position)
 void list_head_remove(dnode*& head_ptr){
     dnode *remove_ptr;
     remove_ptr = head_ptr; //1) mark the head node for deletion
-    if (head_ptr->next() != NULL){
-        head_ptr = head_ptr->next(); //2) move the head_ptr to the new head node
+    head_ptr = head_ptr->next(); //2) move the head_ptr to the new head node
+    if (head_ptr != NULL){
         head_ptr->set_prev(NULL); //3) setting the new head prev link to NULL
     }
-
     delete remove_ptr; //4) deleted the old head dnode
 }
 
