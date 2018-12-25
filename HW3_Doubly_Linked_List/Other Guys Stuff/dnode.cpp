@@ -132,7 +132,7 @@ void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr) // T
 	// Copy the rest of the nodes one at a time, adding at the tail of new list.
 	const dnode* start_ptr = source_ptr;
 	source_ptr = source_ptr->fore(); 
-	while (source_ptr != start_ptr)
+	while (source_ptr  != start_ptr)
 	{
 		insert(tail_ptr, source_ptr->data());
 		tail_ptr = tail_ptr->fore();

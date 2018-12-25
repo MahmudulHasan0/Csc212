@@ -2,7 +2,7 @@
 #include <cassert>    // Provides assert
 #include <cstdlib>    // Provides NULL and size_t
 
-class dnode {
+class dnode{
     public: 
         typedef double value_type;
         dnode( const value_type& init_data = value_type(), dnode* init_next = NULL, dnode* init_prev = NULL );
