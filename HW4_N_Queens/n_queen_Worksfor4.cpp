@@ -53,7 +53,7 @@ int main()
     N--;
     int counter = 0; //How many times did we increment the curr position? Did we finish the row?
 
-    while(N>=0)  //Already did one queen. 3 queens left. stop when N=0 because all quens are in board
+    while(N>0)  //Already did one queen. 3 queens left. stop when N=0 because all quens are in board
     { 
     //DOING SOME BOARD WARPINGS:
         if (curr > QUEEN) //WARPING: if curr queen's position is QUEEN+1, bring back the pos to 1 
@@ -61,8 +61,8 @@ int main()
         if (curr == 0)   //WARPING: if the curr pos is in the 0 zone, bring it to 1.
             curr = 1; 
 
-    //IF curr POS VIOLATE RULES, SHIFT IT BY 1
-        if (prev==curr || prev==curr+1 || prev==curr-1 || usedCol[curr]) 
+    //IF current POS VIOLATE RULES, SHIFT IT BY 1
+        if (usedCol[curr] || prev==curr || prev==curr+1 || prev==curr-1) 
         {
             curr++;
             counter++;
@@ -76,8 +76,8 @@ int main()
                 usedCol[lastQueen] = false; //resetting the column (popped)
                 lastQueen++;                //moving up the 1nd queen to 2th position  
                 usedCol[lastQueen] = true;  //pretendign as if this postion is filled for testing, will be false if it cant work
-            //CAN I SHIFT THE LAST QUEEN WITHOUT ISSE?: (3)
-            //(1) TEST TO SEE IF ITS NEAR ANY OTHER QUEENS OR IS IN THE SAME COLUMN OR IS IN THE FORBIDEN ZONE
+             //CAN I SHIFT THE LAST QUEEN WITHOUT ISSE?: (3)
+             //(1) TEST TO SEE IF ITS NEAR ANY OTHER QUEENS OR IS IN THE SAME COLUMN OR IS IN THE FORBIDEN ZONE
                 if (secLastQueen!=lastQueen && secLastQueen+1!=lastQueen && secLastQueen-1!=lastQueen && !usedCol[lastQueen] && lastQueen!=0 && lastQueen!=QUEEN+1)
                 {   //ex: Original: [1,3, cant do] --> pop: [1] --> increment: 3-->4 
                     queenPos.push(lastQueen); //now stack is: [1,4] now can search for 3rd queen
@@ -86,7 +86,7 @@ int main()
                     curr = 1; //resettinG search 
                     counter = 0;
                 }
-            //(2) TEST EASY PASS: ONLY ONE QUEEN IS LEFT:  no need to test, just shift:
+             //(2) TEST EASY PASS: ONLY ONE QUEEN IS LEFT:  no need to test, just shift:
                 else if (queenPos.size()==0) 
                 {   //ex: Original: [2] --> pop: [] --> increment: 2-->3 
                     queenPos.push(lastQueen); //now stack is: [2] now cna search for 3rd queen
@@ -94,7 +94,7 @@ int main()
                     curr = 1; //resettinG search 
                     counter = 0;
                 }
-            //(3) CANT MOVE THE LAST QUEEN, POP THE QUEEN BEFORE THAT
+             //(3) CANT MOVE THE LAST QUEEN, POP THE QUEEN BEFORE THAT
                 //do nothing because it will redo the loop  
                 else
                     usedCol[lastQueen] = false; //since i used this for test an didnt push anythign to this location, put this back to 0;   
@@ -110,7 +110,7 @@ int main()
                     counter = 0;    
             } 
         }
-    //IF NO VIOLATION, SET THE curr QUEEN ON THE BOARD
+     //IF NO VIOLATION, SET THE curr QUEEN ON THE BOARD
         else
         {
             queenPos.push(curr);
@@ -119,7 +119,9 @@ int main()
             curr = 1; //RESETTING CURR POSITION SO WE CAN START FROM THE START OF THE NEW ROW.
             N--;
             counter = 0;
-        }        
+        }  
+        //cout<<"-------------------------------------------------------------"<<N<<endl;      
+        //print(queenPos, QUEEN);
     }
     print(queenPos, QUEEN);
     return 0;
