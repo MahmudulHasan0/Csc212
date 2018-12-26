@@ -10,7 +10,6 @@ using namespace std;
 
 void print(stack<int> s, const int size)
 {
-    cout<<endl;
     int arr [size];
     int i = size;
     while(!s.empty())
@@ -62,7 +61,6 @@ int main()
             nextPos = 1; 
         
         if (nextPos == 0)
-            //cout<<"\nactivated o to 1\n";
             nextPos = 1;
      //IF NEXT POS VIOLATE RULES, SHIFT IT BY 1
         if (prevPos==nextPos || prevPos==nextPos+1 || prevPos==nextPos-1 || usedCol[nextPos]) 
@@ -97,7 +95,7 @@ int main()
                     nextPos = 1; //resettinG search 
                     counter = 0;
                 }
-            //(30 CANT MOVE THE LAST QUEEN, POP THE QUEEN BEFORE THAT
+            //(3) CANT MOVE THE LAST QUEEN, POP THE QUEEN BEFORE THAT
                 //do nothing because it will redo the loop  
                 else
                     usedCol[lastQueen] = false; //since i used this for test an didnt push anythign to this location, put this back to 0;   
@@ -123,7 +121,6 @@ int main()
             counter = 0;
         }        
     }
-    cout<<endl;
     print(queenPos, QUEEN);
     return 0;
 }
