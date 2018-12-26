@@ -10,16 +10,15 @@ using namespace std;
 
 void print(stack<int> s, const int size)
 {
-    int arr [size];
-    int i = size;
+    int check [size];
     while(!s.empty())
     {    
-        arr[i] = s.top();
+        check[size] = s.top();
         s.pop();   
         
         for (int j = 1; j<=size; j++)
         {
-            if (j==arr[i])
+            if (j == check[size])
                 cout<<"Q";
             else
                 cout<<".";
@@ -39,36 +38,36 @@ int main()
     const int QUEEN = x;    //QUEEN is the number of queens. Board is also QUEENxQUEEN  
 
     int N = QUEEN;          //Number of queens left to do in board
-    int nextPos = 1;
-    int prevPos = 1; 
-    
+    int curr = 1;           //the column position of the current queen (will iterate through 1 to QUEEN)
+    int prev = 1;           //the column position where the queen was just placed in the board
 
     //Setting column Array to avoid putting 2 queens in same column
-    bool usedCol [QUEEN+6]; //0,1,2,3,4,5. 0 and 5 are outofzone columns
-    for (int i = 0; i<=QUEEN+1; i++)
+    bool usedCol [QUEEN+2]; //QUEEN=5: 0, 1,2,3,4,5, 6. 0 and 6 are outofzone columns
+    for (int i = 0; i<=QUEEN+2; i++)
         usedCol[i] = false;
 
-    queenPos.push(nextPos);
-    usedCol[nextPos] = true;
-    prevPos = nextPos;
-    nextPos = 1;
+    queenPos.push(curr);
+    usedCol[curr] = true;
+    prev = curr;
+    curr = 1;
     N--;
-    
-    int counter = 0; //to know that the next queen been through all positions and couldnt find a good one so need to chage last queen
+    int counter = 0; //How many times did we increment the curr position? Did we finish the row?
+
     while(N>=0)  //Already did one queen. 3 queens left. stop when N=0 because all quens are in board
     { 
-        if (nextPos > QUEEN)
-            nextPos = 1; 
-        
-        if (nextPos == 0)
-            nextPos = 1;
-     //IF NEXT POS VIOLATE RULES, SHIFT IT BY 1
-        if (prevPos==nextPos || prevPos==nextPos+1 || prevPos==nextPos-1 || usedCol[nextPos]) 
+    //DOING SOME BOARD WARPINGS:
+        if (curr > QUEEN) //WARPING: if curr queen's position is QUEEN+1, bring back the pos to 1 
+            curr = 1; 
+        if (curr == 0)   //WARPING: if the curr pos is in the 0 zone, bring it to 1.
+            curr = 1; 
+
+    //IF curr POS VIOLATE RULES, SHIFT IT BY 1
+        if (prev==curr || prev==curr+1 || prev==curr-1 || usedCol[curr]) 
         {
-            nextPos++;
+            curr++;
             counter++;
-        //IF U CANT DO ANYTHING, SHIFT THE LAST QUEEN
-            if (counter >= 4)
+            //IF U CANT DO ANYTHING, SHIFT THE LAST QUEEN
+            if (counter >= QUEEN)
             { //ex: [1,4,2,cantdo]
                 int lastQueen = queenPos.top(); 
                 queenPos.pop();             //[1,4]
@@ -83,16 +82,16 @@ int main()
                 {   //ex: Original: [1,3, cant do] --> pop: [1] --> increment: 3-->4 
                     queenPos.push(lastQueen); //now stack is: [1,4] now can search for 3rd queen
                     N++;
-                    prevPos = lastQueen;
-                    nextPos = 1; //resettinG search 
+                    prev = lastQueen;
+                    curr = 1; //resettinG search 
                     counter = 0;
                 }
             //(2) TEST EASY PASS: ONLY ONE QUEEN IS LEFT:  no need to test, just shift:
                 else if (queenPos.size()==0) 
                 {   //ex: Original: [2] --> pop: [] --> increment: 2-->3 
                     queenPos.push(lastQueen); //now stack is: [2] now cna search for 3rd queen
-                    prevPos = lastQueen;
-                    nextPos = 1; //resettinG search 
+                    prev = lastQueen;
+                    curr = 1; //resettinG search 
                     counter = 0;
                 }
             //(3) CANT MOVE THE LAST QUEEN, POP THE QUEEN BEFORE THAT
@@ -106,17 +105,18 @@ int main()
                     queenPos.push(lastQueen);
                     usedCol[lastQueen] = true;
                     N++;
-                    prevPos = lastQueen;
-                    nextPos = 1; //resettinG search 
+                    prev = lastQueen;
+                    curr = 1; //resettinG search 
                     counter = 0;    
             } 
         }
+    //IF NO VIOLATION, SET THE curr QUEEN ON THE BOARD
         else
         {
-            queenPos.push(nextPos);
-            usedCol[nextPos] = true;
-            prevPos = nextPos;
-            nextPos = 1;
+            queenPos.push(curr);
+            usedCol[curr] = true;
+            prev = curr;
+            curr = 1; //RESETTING CURR POSITION SO WE CAN START FROM THE START OF THE NEW ROW.
             N--;
             counter = 0;
         }        
