@@ -1,13 +1,7 @@
 #include "dnode.h"
-using namespace std;
+//using namespace std;
 
-// dnode::dnode( const value_type& init_data = value_type(), dnode* init_next = NULL, dnode* init_prev = NULL )
-// {
-//     data_field = init_data; 
-//     next_link = init_next; 
-//     prev_link = init_prev;
-// };
-size_t length( const dnode* head_ptr)
+std::size_t length( const dnode* head_ptr)
 {
     const dnode *cursor;
     size_t answer = 0;
@@ -20,7 +14,7 @@ void head_insert(dnode*& head_ptr, const dnode::value_type& entry)
     dnode *new_ptr;
     new_ptr = new dnode(entry, head_ptr, NULL); //1) making new node, back points to NULL (since its new head) and next points to current nex tnode
     if (head_ptr -> prev() != NULL){
-        head_ptr -> set_prev(new_ptr); //2) linking the old head to the new head
+        head_ptr -> set_prev(new_ptr); //2) linking the old head to the new head if need be
     }
     head_ptr = new_ptr; //3) setting the head_ptr
 }
@@ -72,7 +66,7 @@ void list_head_remove(dnode*& head_ptr){
     remove_ptr = head_ptr; //1) mark the head node for deletion
     head_ptr = head_ptr->next(); //2) move the head_ptr to the new head node
     if (head_ptr != NULL){
-        head_ptr->set_prev(NULL); //3) setting the new head prev link to NULL
+        head_ptr->set_prev(NULL); //3) setting the new head prev link to NULL if can
     }
     delete remove_ptr; //4) deleted the old head dnode
 }
@@ -81,8 +75,8 @@ void list_remove(dnode* prev_ptr){
     dnode *remove_ptr;
     remove_ptr = prev_ptr->next(); //1) marking node for deletion
     if (remove_ptr->next() != NULL){
-        remove_ptr->next()->set_prev(prev_ptr);//2) linking front node to back node
-        prev_ptr->set_next( remove_ptr->next() );//3) linking back node to front node
+        remove_ptr->next()->set_prev(prev_ptr);//2) linking front node to back node if can
+        prev_ptr->set_next( remove_ptr->next() );//3) linking back node to front node if can 
     }
     delete remove_ptr; //4) deleting the node
     prev_ptr->set_next(NULL);//5)settign to null
@@ -111,3 +105,36 @@ void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr){//fi
         source_ptr = source_ptr->next(); //(4) addr of source_ptr = addr of next node
     } 
 }
+bool has_cycle(dnode*& head_ptr){ 
+    if (head_ptr==NULL)
+        return false;
+    dnode *fast, *slow;
+    fast = head_ptr->next(); //fast ptr starts on next node
+    slow = head_ptr;//slow ptr starts one node behind
+    while(fast!=NULL && slow!=NULL)
+    {
+        if (fast == slow) //they meet up, then there is a loop
+            return true;
+        fast = fast->next()->next();//fast increments by 2 nodes
+        slow = slow->next(); //slow increments by one node
+    }
+    return false; //if i found no loops, return false
+}
+
+dnode* find_cycle(dnode*& head_ptr){
+    dnode *fast, *slow;
+    fast = head_ptr->next(); //fast ptr starts on next node
+    slow = head_ptr;//slow ptr starts one node behind
+    while(fast!=NULL && slow!=NULL)
+    {
+        if (fast == slow) //they meet up, then there is a loop
+            return fast;//return the node
+        fast = fast->next()->next();//fast increments by 2 nodes
+        slow = slow->next(); //slow increments by one node
+    }
+}
+
+
+
+    
+                                                                                                                                                                                                                                                                                                                                                                                                

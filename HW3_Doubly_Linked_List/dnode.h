@@ -1,4 +1,4 @@
-//The node class for a doubly linked list typically looks something like this:
+//The node class for a doubly linked list:
 #include <cassert>    // Provides assert
 #include <cstdlib>    // Provides NULL and size_t
 
@@ -21,11 +21,13 @@ class dnode{
         dnode* next() { return next_link; }
         const dnode* prev() const { return prev_link; }
         dnode* prev() { return prev_link; }
+
+
         //not in toolkit: implement these methods that are not in the toolkit:
         value_type operator[](std::size_t position);//same as locate, return data at position
-        bool has_cycle(dnode*& head_ptr); //return true if there's a cycle
         dnode* find_cycle(dnode*& head_ptr);//return dnode in cycle
         //Find more information on finding cycles at: https://blog.ostermiller.org/find-loop-singly-linked-list
+        
 
     private:
         value_type data_field;
@@ -43,6 +45,12 @@ void list_head_remove(dnode*& head_ptr);
 void list_remove(dnode* prev_ptr);
 void list_clear(dnode*& head_ptr);
 void list_copy(const dnode* source_ptr, dnode*& head_ptr, dnode*& tail_ptr);
+//not in toolkit: implement these methods that are not in the toolkit:
+// value_type operator[](std::size_t position);//same as locate, return data at position
+bool has_cycle(dnode*& head_ptr); //return true if there's a cycle
+dnode* find_cycle(dnode*& head_ptr);//return dnode in cycle
+//Find more information on finding cycles at: https://blog.ostermiller.org/find-loop-singly-linked-list
+        
 
 
 

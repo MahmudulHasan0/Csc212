@@ -2,9 +2,10 @@
 #include <cstdlib>
 #include "dnode.h"
 using namespace std;
-int main(){
+int main()
+{
     dnode *head_ptr, *tail_ptr;
-    dnode *p, *q, *r, *s;  
+    dnode *p, *q, *r, *s, *t;  
     p = new dnode(1.0, NULL, NULL);
     q = new dnode(2.0, NULL, p);
     p -> set_next(q);
@@ -14,7 +15,6 @@ int main(){
     r->set_next(s);
     head_ptr = p;
     tail_ptr = s;
-    dnode *l = tail_ptr->prev();
 
 //TESTING NEXT AND PREV MEMBERFUCNTIONS:
     // cout<<p<<endl;
@@ -35,4 +35,12 @@ int main(){
     // cout<<length(head_ptr)<<endl;
     // list_clear(head_ptr);
     // cout<<length(head_ptr)<<endl;//0
+//TESTING LOOPS IN THE LINKED LIST 
+   //  t = new dnode(5.0, r, s); //loop
+   //  s->set_next(t);
+   //  tail_ptr = t;
+   //  cout<<"loop?: "<< has_cycle(head_ptr)<<endl; //should return true
+   //  cout<<find_cycle(head_ptr)->data(); //should return 3.0
+
+
 }
