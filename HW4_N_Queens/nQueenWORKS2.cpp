@@ -14,7 +14,7 @@ void print(stack<int> s, const int QUEEN)
     {    
         int q = s.top(); 
         s.pop();   
-        for (int j = 1; j<=QUEEN; j++)
+        for (int j = 1; j<=QUEEN; ++j)
         {
             if (j == q)
                 cout<<"Q";
@@ -78,7 +78,7 @@ int main()
                     //A*) RECORD THEN POP AND INCREMENT LAST QUEEN 
                     int poppedQueen = queenPos.top(); //1) Record last queen then pop it
                     queenPos.pop();                
-                    N++;                          //2) Got one more queen to do sinc eu popped
+                    ++N;                          //2) Got one more queen to do sinc eu popped
                     usedCol[poppedQueen] = false; //3) resetting the column (popped)
                     poppedQueen++;                //4) Moving up the last queen to next position
                     //B*) DOESNT VIOLATE RULES, PUT THE QUEEN ON BOARD AND SEARCH FOR NEXT QUEEN
