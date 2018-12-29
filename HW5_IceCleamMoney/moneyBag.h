@@ -3,9 +3,10 @@
 
 class moneyBag{
 private:
-    size_t oneDollar_Count, fiveDollar_Count, tenDollar_Count, twentyDollar_Count;
+    size_t oneDollar_Count, fiveDollar_Count, tenDollar_Count, twentyDollar_Count, revenue;
 public:
     moneyBag();
+    void getRevenue(){ revenue = total();}
     //WHAT THE CUSTOMER GIVES AND YOU PUT INTO YOUR BAG
     void putInOne(size_t q){oneDollar_Count = oneDollar_Count + q;}
     void putInFive(size_t q){fiveDollar_Count = fiveDollar_Count + q;}

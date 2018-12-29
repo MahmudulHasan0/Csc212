@@ -8,6 +8,7 @@ moneyBag::moneyBag()
     fiveDollar_Count = 0;
     tenDollar_Count = 0;
     twentyDollar_Count = 0;
+    revenue = 0;
 }
 void moneyBag::putInBag(int clientMoney)
 {
@@ -65,7 +66,7 @@ void moneyBag::printEach(){
     cout<<"Five:    "<<fiveDollar_Count<<"     Money: $"<<5*fiveDollar_Count<<endl;
     cout<<"Ten:     "<<tenDollar_Count <<"     Money: $"<<10*tenDollar_Count<<endl;
     cout<<"Twenty:  "<<twentyDollar_Count <<"     Money: $"<<20*twentyDollar_Count<<endl;
-    cout<<"Total: $"<<total()<<endl;
+    cout<<"Xavier's Revenue = $"<<total()<<endl;
 }
 
 

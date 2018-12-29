@@ -43,21 +43,26 @@ int main(){
 
     for (int i=0;i<6;++i)
     {
+        //GET THE CHANGE. CAN YOU PAY THE GUY BACK IF HE BUYS AN ICECREAM?
         int change = clientMoney.front() - 2;
         //cout<<"clientMoney["<<i<<"]  =  "<<clientMoney.front()<<"       change: "<<change<<endl;
         //Xavier.printEach();
         cout<<"i: "<<clientMoney.front()<<"     t:"<<Xavier.total()<<"      change: "<<change<<endl;
         //cout<<"---------------------------------------------------change"<<endl;
+
+        //THERE WAS A GUY I DIDNT PAY EARLIER, I PUSHED HIM TO THE SIDE, I CAN PAY HIM NOW:
         if (Xavier.total() >= notPaid.front()){
             Xavier.putInBag(clientMoney.front());
             Xavier.takeOutBag(change);
             cout<<"Paid Customer "<<i<<endl;
             notPaid.pop();
         }
+        //I HAVE ENOUGH MONEY TO PAY WHOEVER IT IS BACK:
         else if (Xavier.total() >= change){
             Xavier.putInBag(clientMoney.front());
             Xavier.takeOutBag(change);
         }
+        //I CANT PAY THIS GUY, PUSH HIM TO THE SIDE SO THAT I CAN PAY HIM BACK WHEN I HAVE ENOUGH MONEY
         else{
             notPaid.push(i);
             cout<<"Didnt pay customer: "<<i<<" He had: $"<<clientMoney.front()<<endl;
