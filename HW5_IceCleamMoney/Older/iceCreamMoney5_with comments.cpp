@@ -33,9 +33,18 @@ int main(){
     moneyBag Xavier;    //Xaviers money bag
     queue<int> clientMoney;  //clients in the line
     queue<int> notPaid;
+
     pair<int, int> person;
     map<int, int> waitlist;
-    map<int,int>::iterator it;
+
+    
+    map<int,int>::iterator it = waitlist.begin();
+
+    
+
+
+
+
 
     clientMoney.push(4);
     clientMoney.push(2);
@@ -44,29 +53,32 @@ int main(){
     clientMoney.push(5);
     clientMoney.push(2);
     clientMoney.push(10);
-    int size = clientMoney.size();
-    for (int i=1;i<=size;++i)
+    //clientMoney.push(16);
+    //cout<<"----------: "<<clientMoney.size()<<endl;;
+    for (int i=0;i<clientMoney.size();++i)
     {
         //GET THE CHANGE. CAN YOU PAY THE GUY BACK IF HE BUYS AN ICECREAM?
         int change = clientMoney.front() - 2;
+        //cout<<"clientMoney["<<i<<"]  =  "<<clientMoney.front()<<"       change: "<<change<<endl;
+        //Xavier.printEach();
         cout<<"i: "<<i<<"    money: $"<<clientMoney.front()<<"     Xavier: $"<<Xavier.total()<<"      change: $"<<change<<endl;
+        //cout<<"---------------------------------------------------change"<<endl;
 
-        //THERE WAS A GUY I COULDNT GIVE CHANGE TO, I PUSHED HIM TO THE SIDE, I CAN NOW HAVE ENOUGH MONEY TO PAY HIM HIS CHANGE. SO I ACEPT HIM:
-        if (Xavier.total() >= notPaid.front()-2){
+        //THERE WAS A GUY I DIDNT PAY EARLIER, I PUSHED HIM TO THE SIDE, I CAN PAY HIM NOW:
+        if (Xavier.total() >= notPaid.front()){
             Xavier.putInBag(notPaid.front());
             int change = clientMoney.front() - 2;
             Xavier.takeOutBag(change);
-            it = waitlist.begin();
             it=waitlist.find(notPaid.front());
-            cout<<"Paid Customer "<<it->second<<"  Xavier's Revenue: $"<<Xavier.total()<<endl;
+            cout<<"Paid Customer "<<it->second<<endl;
             notPaid.pop();
         }
-        //I GOT ENOUGH MONEY TO GIVE CHANGE:
+        //I HAVE ENOUGH MONEY TO PAY WHOEVER IT IS BACK:
         else if (Xavier.total() >= change){
             Xavier.putInBag(clientMoney.front());
             Xavier.takeOutBag(change);
         }
-        //I CANT GIVE THIS GUY CHANGE, PUSH HIM TO THE SIDE SO THAT I CAN PAY HIM HIS CHANGE WHEN I HAVE ENOUGH MONEY
+        //I CANT PAY THIS GUY, PUSH HIM TO THE SIDE SO THAT I CAN PAY HIM BACK WHEN I HAVE ENOUGH MONEY
         else{
             notPaid.push(clientMoney.front());  //pushing the money of the denied customer to front of queue. will use this as a key to the customer's index
             person.first = notPaid.front();     //money that the denied customer has
@@ -78,5 +90,60 @@ int main(){
     }
     Xavier.printEach();
 }
+
+
+
+// int main()
+// {
+//     queue<int> client;  //clients in the line
+//     int money = 0;      //starting out with no money
+//     int lineLength = 10;
+//     int clientIndex[lineLength]; 
+//     for (int i=0;i<lineLength;i++)
+//     {
+//         // SET UP THE LINE:
+//         money cash;
+//         cash.value = rand() % 20+ 1;         //generate a random number from $1 to $20
+//         client.push(clientMoney);             //makeing a line with everyones money on hand  
+//         clientIndex[i] = client.front();
+//         cout << "client: "<< i <<"   $"<<clientMoney<< endl;  
+//     }
+//     int i=0;
+//     while (!client.empty())
+//     {
+//         //CHECK IF YOU CAN PAY THE GUY OR NOT
+//         int change = client.front()-2;
+//         money = money + change;
+//         if (change > money)//if i dont have change  
+//         {
+//             cout<<"cant pay client #"<<i<<endl;
+//             client.pop();
+//         }
+//         else if (change <= money)   //if i do have change,  
+//         {
+//             money = money + 2;
+//             cout<<"paid client #"<<i<<endl;
+//             client.pop();
+//         }
+//         i++;
+//     }
+// }
+
+
+/*
+//THIS IS CODE TO FIND HOW MANY $10 CAN FIT:
+int main()
+{
+    int x = 30;
+    int z = 0;
+    while(x-10>=0){
+        ++z;
+        x = x-10;
+    }
+    cout<<z;
+
+    return 0;
+}
+*/
 
 

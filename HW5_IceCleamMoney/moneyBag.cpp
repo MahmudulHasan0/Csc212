@@ -62,10 +62,11 @@ void moneyBag::takeOutBag(int change)
     takeOutOne(change); 
 }
 void moneyBag::printEach(){
-    cout<<"\nOnes:    "<<oneDollar_Count  <<"     Money: $"<<oneDollar_Count<<endl;
-    cout<<"Five:    "<<fiveDollar_Count<<"     Money: $"<<5*fiveDollar_Count<<endl;
-    cout<<"Ten:     "<<tenDollar_Count <<"     Money: $"<<10*tenDollar_Count<<endl;
-    cout<<"Twenty:  "<<twentyDollar_Count <<"     Money: $"<<20*twentyDollar_Count<<endl;
+    cout<<"\nXAVIER'S WALLET: "<<endl;
+    cout<<"How Many One Dollar Bills:   "<<oneDollar_Count <<"     Money: $"<<oneDollar_Count<<endl;
+    cout<<"How Many Five Dollar Bills:  "<<fiveDollar_Count<<"     Money: $"<<5*fiveDollar_Count<<endl;
+    cout<<"How Many Ten Dollar Bills:   "<<tenDollar_Count<<"     Money: $"<<10*tenDollar_Count<<endl;
+    cout<<"How Many Twenty Dolar Bills: "<<twentyDollar_Count<<"     Money: $"<<20*twentyDollar_Count<<endl;
     cout<<"Xavier's Revenue = $"<<total()<<endl;
 }
 
