@@ -1,4 +1,4 @@
-/*
+/*Mahmudul Hasan
 Queue Applications: Scheduling/Resource allocatioN
 Check if Xavier can give change to every person in the queue
 
@@ -20,37 +20,40 @@ Modification two: average
     - revenue
 */
 
-
 #include <iostream>
 #include <iostream>
 #include <queue>
 #include "moneyBag.h"
 #include <cstdlib> //size_t
-#include <map>
+#include <map>     //map and pair
 using namespace std;
 
 int main(){
-    moneyBag Xavier;    //Xaviers money bag
-    queue<int> clientMoney;  //clients in the line
-    queue<int> notPaid;
-    pair<int, int> person;
-    map<int, int> waitlist;
-    map<int,int>::iterator it;
+    //SETTING UP SOME STUFF
+    moneyBag Xavier;           //Xaviers money bag
+    queue<int> clientMoney;    //Clients in the line
+    queue<int> notPaid;        //Clients that i had to temporaraly reject since i couldnt pay them the change
+    pair<int, int> person;     //I needed a way to keep track of a person's position in the line. Used how much they paid as they key and their position in the line as the value
+    map<int, int> waitlist;    //This is a list of the rejected customer (will accept them onc ei have enough money depending on the order they entered this list.)
+    map<int,int>::iterator it; //will use this to search through the waitlist to find the key (not really needed since im using the notPaid queue for the key.)
+    int lineLength;            //Number of people on line. User Input. 1st person has the index of 1
+    int stock = 100;           //stock of 100 icecreams
+    cout<<"XAVIER HAS A STOCK OF 100 ICECREAMS. EACH PERSON CAN ONLY BUY ONE ICECREAM\nHOW MANY CUSTOMERS ARE ONE THE LINE?\n";
+    cin>>lineLength;
 
-    clientMoney.push(4);
-    clientMoney.push(2);
-    clientMoney.push(2);
-    clientMoney.push(2);
-    clientMoney.push(5);
-    clientMoney.push(2);
-    clientMoney.push(10);
+    //GIVING XAVIER SOME FIRST CUSTOMERS SO HER CAN PAY FOR STUFF 
+    clientMoney.push(2); //the first customer so that Xavier some money to play with. With this, Xavier has a hard time selling
+    //MAKING THE LIST OF CUSTOMERS:
+    for(int i=0;i<lineLength-1;++i){
+        clientMoney.push(rand() % 20+ 1); //random numbers $1 to $20
+    }
     int size = clientMoney.size();
+    //ALGORITHM FOR THE SHOP:
     for (int i=1;i<=size;++i)
     {
         //GET THE CHANGE. CAN YOU PAY THE GUY BACK IF HE BUYS AN ICECREAM?
         int change = clientMoney.front() - 2;
         cout<<"i: "<<i<<"    money: $"<<clientMoney.front()<<"     Xavier: $"<<Xavier.total()<<"      change: $"<<change<<endl;
-
         //THERE WAS A GUY I COULDNT GIVE CHANGE TO, I PUSHED HIM TO THE SIDE, I CAN NOW HAVE ENOUGH MONEY TO PAY HIM HIS CHANGE. SO I ACEPT HIM:
         if (Xavier.total() >= notPaid.front()-2){
             Xavier.putInBag(notPaid.front());
@@ -60,11 +63,13 @@ int main(){
             it=waitlist.find(notPaid.front());
             cout<<"Paid Customer "<<it->second<<"  Xavier's Revenue: $"<<Xavier.total()<<endl;
             notPaid.pop();
+            stock--;
         }
         //I GOT ENOUGH MONEY TO GIVE CHANGE:
         else if (Xavier.total() >= change){
             Xavier.putInBag(clientMoney.front());
             Xavier.takeOutBag(change);
+            stock--;
         }
         //I CANT GIVE THIS GUY CHANGE, PUSH HIM TO THE SIDE SO THAT I CAN PAY HIM HIS CHANGE WHEN I HAVE ENOUGH MONEY
         else{
@@ -74,8 +79,17 @@ int main(){
             waitlist.insert(person);            //put the person in the waitlist map
             cout<<"Didnt pay customer: "<<i<<" He had: $"<<clientMoney.front()<<endl;
         }
+        if (i==size){
+            cout<<"I HAVE "<<stock<<" MORE ICECREAMS LEFT :( I ALSO HAVE "<<notPaid.size()<<" PEOPLE WAITING TO BUY BUT I CAN'T PAY THEM CHANGE \n"<<endl;
+            break;
+        }
+        if (stock == 0){
+            cout<<"GOT NO MORE ICE CREAM, NEED TO CLOSE DOWN FOR THE DAY!\n"<<endl;
+            break;
+        }
         clientMoney.pop();
     }
+    cout<<"ICECREAM SOLD: "<<100-stock;
     Xavier.printEach();
 }
 
