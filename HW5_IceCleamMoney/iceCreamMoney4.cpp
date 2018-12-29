@@ -22,48 +22,82 @@ Modification two: average
 
 #include <iostream>
 #include <queue>
-#include <cstdlib> 
+#include <cstdlib> //size_t
+#include "moneyBag.h"
 using namespace std;
 
-
-int *money;
-money = new int[4]; 
-
-
-int main()
-{
+int main(){
+    moneyBag moneyBag(); //Xaviers money bag
     queue<int> client;  //clients in the line
-    int money = 0;      //starting out with no money
-    int lineLength = 10;
-    int clientIndex[lineLength]; 
-    for (int i=0;i<lineLength;i++)
+    const int lineLength = 7;
+    //test
+        int clientMoney[lineLength] = {2, 2, 2, 5, 2, 10, 16};
+    int *clientIndex = new int[lineLength]; 
+    for (int i=0;i<lineLength;++i)
     {
         // SET UP THE LINE:
-        money cash;
-        cash.value = rand() % 20+ 1;         //generate a random number from $1 to $20
-        client.push(clientMoney);             //makeing a line with everyones money on hand  
-        clientIndex[i] = client.front();
-        cout << "client: "<< i <<"   $"<<clientMoney<< endl;  
-    }
-    int i=0;
-    while (!client.empty())
-    {
-        //CHECK IF YOU CAN PAY THE GUY OR NOT
-        int change = client.front()-2;
-        money = money + change;
-        if (change > money)//if i dont have change  
-        {
-            cout<<"cant pay client #"<<i<<endl;
-            client.pop();
-        }
-        else if (change <= money)   //if i do have change,  
-        {
-            money = money + 2;
-            cout<<"paid client #"<<i<<endl;
-            client.pop();
-        }
-        i++;
-    }
+        clientIndex[i]=clientMoney[i];
+
+        //     clientMoney = rand() % 20+ 1;         //generate a random number from $1 to $20
+        //     client.push(clientMoney);             //makeing a line with everyones money on hand  
+        //     clientIndex[i] = client.front();
+        //     cout << "client: "<< i <<"   $"<<clientMoney<< endl;  
+    // }
 }
+
+
+
+// int main()
+// {
+//     queue<int> client;  //clients in the line
+//     int money = 0;      //starting out with no money
+//     int lineLength = 10;
+//     int clientIndex[lineLength]; 
+//     for (int i=0;i<lineLength;i++)
+//     {
+//         // SET UP THE LINE:
+//         money cash;
+//         cash.value = rand() % 20+ 1;         //generate a random number from $1 to $20
+//         client.push(clientMoney);             //makeing a line with everyones money on hand  
+//         clientIndex[i] = client.front();
+//         cout << "client: "<< i <<"   $"<<clientMoney<< endl;  
+//     }
+//     int i=0;
+//     while (!client.empty())
+//     {
+//         //CHECK IF YOU CAN PAY THE GUY OR NOT
+//         int change = client.front()-2;
+//         money = money + change;
+//         if (change > money)//if i dont have change  
+//         {
+//             cout<<"cant pay client #"<<i<<endl;
+//             client.pop();
+//         }
+//         else if (change <= money)   //if i do have change,  
+//         {
+//             money = money + 2;
+//             cout<<"paid client #"<<i<<endl;
+//             client.pop();
+//         }
+//         i++;
+//     }
+// }
+
+
+/*
+//THIS IS CODE TO FIND HOW MANY $10 CAN FIT:
+int main()
+{
+    int x = 30;
+    int z = 0;
+    while(x-10>=0){
+        ++z;
+        x = x-10;
+    }
+    cout<<z;
+
+    return 0;
+}
+*/
 
 
