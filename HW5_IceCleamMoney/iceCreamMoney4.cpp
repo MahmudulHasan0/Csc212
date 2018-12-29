@@ -21,28 +21,44 @@ Modification two: average
 */
 
 #include <iostream>
+#include <iostream>
 #include <queue>
-#include <cstdlib> //size_t
 #include "moneyBag.h"
+#include <cstdlib> //size_t
 using namespace std;
 
 int main(){
-    moneyBag moneyBag(); //Xaviers money bag
+    moneyBag Xavier;    //Xaviers money bag
     queue<int> client;  //clients in the line
-    const int lineLength = 7;
+    queue<int> notPaid;
     //test
-        int clientMoney[lineLength] = {2, 2, 2, 5, 2, 10, 16};
-    int *clientIndex = new int[lineLength]; 
-    for (int i=0;i<lineLength;++i)
+        int clientMoney[10] = {2, 2, 2, 5, 2, 10};
+    for (int i=0;i<6;++i)
     {
-        // SET UP THE LINE:
-        clientIndex[i]=clientMoney[i];
 
-        //     clientMoney = rand() % 20+ 1;         //generate a random number from $1 to $20
-        //     client.push(clientMoney);             //makeing a line with everyones money on hand  
-        //     clientIndex[i] = client.front();
-        //     cout << "client: "<< i <<"   $"<<clientMoney<< endl;  
-    // }
+        int change = clientMoney[i] - 2;
+        cout<<"clientMoney["<<i<<"]  =  "<<clientMoney[i]<<"       change: "<<change<<endl;
+        Xavier.putInBag(clientMoney[i]);
+        Xavier.printEach();
+        cout<<"t: "<<Xavier.total()<<"      change: "<<change<<endl;
+        cout<<"---------------------------------------------------\n"<<endl;
+
+        if (Xavier.total() > change){
+            cout<<"taking out of bag"<<endl;
+            Xavier.takeOutBag(change);
+        }
+        else{
+            notPaid.push(i);
+            cout<<"Didnt pay customer: "<<i+1<<". He gave: $"<<clientMoney[i]<<endl;
+        }
+        // //SET UP THE LINE:
+        //  clientMoney = rand() % 20+ 1;         //generate a random number from $1 to $20
+        //  client.push(clientMoney);             //makeing a line with everyones money on hand  
+        //  clientIndex[i] = client.front();
+        //  cout << "client: "<< i <<"   $"<<clientMoney<< endl;  
+        //  Xavier.putInBag(clientMoney[i]);
+    }
+    Xavier.printEach();
 }
 
 
