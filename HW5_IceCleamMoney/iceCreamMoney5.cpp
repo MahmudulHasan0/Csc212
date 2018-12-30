@@ -38,30 +38,40 @@ int main(){
     map<int,int>::iterator it; //will use this to search through the waitlist to find the key (not really needed since im using the notPaid queue for the key.)
     int lineLength;            //Number of people on line. User Input. 1st person has the index of 1
     int stock = 100;           //stock of 100 icecreams
-    cout<<"XAVIER HAS A STOCK OF 100 ICECREAMS. EACH PERSON CAN ONLY BUY ONE ICECREAM\nHOW MANY CUSTOMERS ARE ONE THE LINE?\n";
+    cout<<"XAVIER HAS A STOCK OF 100 ICECREAMS. EACH PERSON CAN ONLY BUY ONE ICECREAM\nHow many customers are on the line?\n";
     cin>>lineLength;
 
     //GIVING XAVIER SOME FIRST CUSTOMERS SO HER CAN PAY FOR STUFF 
     clientMoney.push(2); //the first customer so that Xavier some money to play with. With this, Xavier has a hard time selling
     //MAKING THE LIST OF CUSTOMERS:
-    for(int i=0;i<lineLength-1;++i){
+    for(int i=1;i<lineLength;++i){
         clientMoney.push(rand() % 20+ 1); //random numbers $1 to $20
     }
     int size = clientMoney.size();
+
     //ALGORITHM FOR THE SHOP:
-    for (int i=1;i<=size;++i)
+    for (int i=1;i<=size+1;++i)
     {
         //GET THE CHANGE. CAN YOU PAY THE GUY BACK IF HE BUYS AN ICECREAM?
         int change = clientMoney.front() - 2;
-        cout<<"i: "<<i<<"    money: $"<<clientMoney.front()<<"     Xavier: $"<<Xavier.total()<<"      change: $"<<change<<endl;
-        //THERE WAS A GUY I COULDNT GIVE CHANGE TO, I PUSHED HIM TO THE SIDE, I CAN NOW HAVE ENOUGH MONEY TO PAY HIM HIS CHANGE. SO I ACEPT HIM:
-        if (Xavier.total() >= notPaid.front()-2){
+        //cout<<"i: "<<i<<"    money: $"<<clientMoney.front()<<"     Xavier: $"<<Xavier.total()<<"      change: $"<<change<<"   SIZE:"<<size<<endl;
+        //CONDITIONS TO STOP LOOP IF I CANT GO FURTHER
+        if (i==size+1){
+            cout<<"REACHED END OF THE LINE. I HAVE "<<stock<<" MORE ICECREAMS LEFT :( I ALSO HAVE "<<notPaid.size()<<" PEOPLE WAITING TO BUY BUT I CAN'T PAY THEM CHANGE \n"<<endl;
+            break;
+        }
+        else if (stock == 0){
+            cout<<"GOT NO MORE ICE CREAM, NEED TO CLOSE DOWN FOR THE DAY!\n"<<endl;
+            break;
+        }
+        //THERE WAS A GUY I COULDNT GIVE CHANGE TO, I PUSHED HIM TO THE SIDE, I CAN NOW HAVE ENOUGH MONEY TO PAY HIM HIS CHANGE. SO I ACCEPT HIM:
+        else if (Xavier.total() >= notPaid.front()-2){
             Xavier.putInBag(notPaid.front());
             int change = clientMoney.front() - 2;
             Xavier.takeOutBag(change);
             it = waitlist.begin();
             it=waitlist.find(notPaid.front());
-            cout<<"Paid Customer "<<it->second<<"  Xavier's Revenue: $"<<Xavier.total()<<endl;
+            cout<<"Paid Customer #"<<it->second<<"  Xavier's Revenue: $"<<Xavier.total()<<endl;
             notPaid.pop();
             stock--;
         }
@@ -77,16 +87,9 @@ int main(){
             person.first = notPaid.front();     //money that the denied customer has
             person.second = i;                  //index in line of the denied person
             waitlist.insert(person);            //put the person in the waitlist map
-            cout<<"Didnt pay customer: "<<i<<" He had: $"<<clientMoney.front()<<endl;
+            cout<<"Didnt pay customer #"<<i<<" He had: $"<<clientMoney.front()<<endl;
         }
-        if (i==size){
-            cout<<"I HAVE "<<stock<<" MORE ICECREAMS LEFT :( I ALSO HAVE "<<notPaid.size()<<" PEOPLE WAITING TO BUY BUT I CAN'T PAY THEM CHANGE \n"<<endl;
-            break;
-        }
-        if (stock == 0){
-            cout<<"GOT NO MORE ICE CREAM, NEED TO CLOSE DOWN FOR THE DAY!\n"<<endl;
-            break;
-        }
+
         clientMoney.pop();
     }
     cout<<"ICECREAM SOLD: "<<100-stock;
