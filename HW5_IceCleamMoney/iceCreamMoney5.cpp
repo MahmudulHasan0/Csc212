@@ -92,8 +92,9 @@ int main(){
 
         clientMoney.pop();
     }
+    Xavier.printEach();    
     cout<<"ICECREAM SOLD: "<<100-stock;
-    Xavier.printEach();
+
 }
 
 
